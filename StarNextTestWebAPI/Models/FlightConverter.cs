@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Diagnostics.CodeAnalysis;
 using System.Formats.Asn1;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text;
 
 namespace StarNextTestWebAPI.Models
 {
@@ -13,14 +14,14 @@ namespace StarNextTestWebAPI.Models
             var list = new List<Flight>();
             int passengerCount = 0;
             bool KeepReadingArrayFlag = true;
+            byte[] buffer = Encoding.UTF8.GetBytes(reader.GetString());
+            var serializationReader = new Utf8JsonReader(buffer);
+
             while (reader.Read())
             {
                 // Start of a new Flight object.
                 if (reader.TokenType == JsonTokenType.StartObject)
                 {
-                    // Read the flight object.
-                    var flight = JsonSerializer.Deserialize<Flight>(ref reader, options); // WARNING: will push reader all the way to the end of the object!!!
-
                     // Read until reached the passengers.
                     while (reader.TokenType != JsonTokenType.PropertyName && reader.GetString() != "Passengers")
                     {
@@ -50,6 +51,8 @@ namespace StarNextTestWebAPI.Models
                     // Check if the passenger count is less than 2.
                     if (passengerCount < 2)
                     {
+                        // Read the flight object.
+                        var flight = JsonSerializer.Deserialize<Flight>(ref serializationReader, options); // WARNING: will push reader all the way to the end of the object!!!
                         // Add the flight to the list.
                         list.Add(flight);
                     }
