@@ -9,9 +9,9 @@ namespace StarNextTestWebAPI.Models.DAL
         {
             var flightsJson = File.ReadAllText("./FlightRawData/Raw_data RT - 2pax .json");
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            return JsonSerializer.Deserialize<List<Flight>>(flightsJson, options);
+            return JsonSerializer.Deserialize<List<Flight>>(flightsJson, options);        
         }
-
+        
         // Returns list of all flights where there are <2 passengers.
         public List<Flight> GetFlightsPassengerFiltered()
         {
@@ -28,5 +28,5 @@ namespace StarNextTestWebAPI.Models.DAL
             return flights;
         }
     }
-
+    
 }
