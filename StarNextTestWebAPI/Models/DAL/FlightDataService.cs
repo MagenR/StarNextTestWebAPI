@@ -15,7 +15,7 @@ namespace StarNextTestWebAPI.Models.DAL
         // Returns list of all flights where there are <2 passengers.
         public List<Flight> GetFlightsPassengerFiltered()
         {
-            var flightsJson = File.ReadAllText("./FlightRawData/Raw_data RT - 2pax .json");
+            var flightsJson = File.ReadAllText("./FlightRawData/Raw_data RT - 2pax (Modified) .json");
             var flightsWithPassengersSerialized = JsonSerializer.Deserialize<List<FlightWithPassengers>>(flightsJson);
             List<FlightWithPassengers> flightsWithPassengers = flightsWithPassengersSerialized.Where(flight => flight.Passengers.Count() < 2).ToList();
             List<Flight> flights = new();
