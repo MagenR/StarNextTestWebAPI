@@ -17,11 +17,19 @@ namespace StarNextTestWebAPI.Controllers
             _flightDataService = flightDataService;
         }
 
-        //[HttpGet]
+        // Regular API GET call to be used with the FrontEnd.
         [HttpGet("search")]
         public ActionResult<List<Flight>> Get()
         {
             var flights = _flightDataService.GetFlights();
+            return Ok(flights);
+        }
+
+        // Additional call for filtering flights by <2 passengers (1 flight should be returned).
+        [HttpGet("search/passenger")]
+        public ActionResult<List<Flight>> GetPassengerFiltered()
+        {
+            var flights = _flightDataService.GetFlightsPassengerFiltered();
             return Ok(flights);
         }
     }
