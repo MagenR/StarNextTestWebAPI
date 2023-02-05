@@ -180,10 +180,16 @@
             "Adult": {
                 "Type": 1,
                 "Label": "מבוגרים",
-                "Amount": 1
+                "Amount": 2
             }
         },
         "Passengers": [{
+                "FareBase": 199.0,
+                "TotalPrice": 333.0,
+                "TotalTax": 154.0,
+                "PaxType": 1,
+                "BaggageUpgrade": null
+            }, {
                 "FareBase": 199.0,
                 "TotalPrice": 333.0,
                 "TotalTax": 154.0,
